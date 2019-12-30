@@ -15,7 +15,7 @@ const characters = [
   "n",
   "o",
   "p",
-  "k",
+  "q",
   "r",
   "s",
   "t",
@@ -28,69 +28,71 @@ const characters = [
 ];
 
 function main() {
-  let string = "luva";
+  let string = "shka je bre tu folen";
   console.log("initial string: ", string);
-  const ciphredString = cypher(string, 6);
+  const ciphredString = cipher(string, 3);
   console.log("ciphered string: ", ciphredString);
-  const deciphredString = decypher(ciphredString, 6);
+  const deciphredString = decipher(ciphredString, 3);
   console.log("deciphered string: ", deciphredString);
 }
 
-function cypher(string, shiftLength) {
-  let splittedString = string.split("");
-  let characterPositions = [];
+function cipher(string, shiftLength) {
+  const characterPositions = getCharacterPositions(string);
+  return alteredString(characterPositions, characters, shiftLength, true);
+}
 
-  splittedString.map(character => {
+function decipher(stringy, shiftLength) {
+  const characterPositions = getCharacterPositions(stringy);
+
+  return alteredString(characterPositions, characters, shiftLength, false);
+}
+
+function getCharacterPositions(string) {
+  let newString = string.replace(/\s+/g, "+");
+  let splittedString = newString.split("");
+  let characterPositions = [];
+  splittedString.map((character, index) => {
     characters.map((c, i) => {
-      if (c === character) {
+      if (
+        character === "+" &&
+        characterPositions[characterPositions.length - 1] !== "+"
+      ) {
+        characterPositions = [...characterPositions, "+"];
+      } else if (c === character) {
         characterPositions = [...characterPositions, i];
       }
     });
   });
-  return cypheredString(characterPositions, characters, shiftLength);
+  return characterPositions;
 }
-
-function cypheredString(positions, characters, shiftLength) {
+function alteredString(positions, characters, shiftLength, positiveShift) {
   let remainderLength;
-  let cypheredString = "";
-  positions.map(pos => {
-    if (pos + shiftLength > characters.length - 1) {
-      remainderLength = pos + shiftLength - characters.length;
-      cypheredString = cypheredString + characters[remainderLength];
-    } else {
-      cypheredString = cypheredString + characters[pos + shiftLength];
-    }
-  });
-
-  return cypheredString;
-}
-
-function decypher(string, shiftLength) {
-  let splittedString = string.split("");
-  let characterPositions = [];
-
-  splittedString.map(character => {
-    characters.map((c, i) => {
-      if (c === character) {
-        characterPositions = [...characterPositions, i];
+  let newString = "";
+  if (positiveShift) {
+    positions.map(pos => {
+      if (pos === "+") {
+        newString = newString + " ";
+      } else if (pos + shiftLength > characters.length - 1) {
+        remainderLength = pos + shiftLength - characters.length;
+        newString = newString + characters[remainderLength];
+      } else {
+        newString = newString + characters[pos + shiftLength];
       }
     });
-  });
-  return decypheredString(characterPositions, characters, shiftLength);
+  } else {
+    positions.map(pos => {
+      if (pos === "+") {
+        newString = newString + " ";
+      } else if (pos - shiftLength < 0) {
+        remainderLength = pos - shiftLength + characters.length;
+        newString = newString + characters[remainderLength];
+      } else {
+        newString = newString + characters[pos - shiftLength];
+      }
+    });
+  }
+
+  return newString;
 }
 
-function decypheredString(positions, characters, shiftLength) {
-  let remainderLength;
-  let decypheredString = "";
-  positions.map(pos => {
-    if (pos - shiftLength < 0) {
-      remainderLength = pos - shiftLength + characters.length;
-      decypheredString = decypheredString + characters[remainderLength];
-    } else {
-      decypheredString = decypheredString + characters[pos - shiftLength];
-    }
-  });
-
-  return decypheredString;
-}
 main();
