@@ -57,7 +57,7 @@ function getCharacterPositions(string) {
         character === "+" &&
         characterPositions[characterPositions.length - 1] !== "+"
       ) {
-        characterPositions = [...characterPositions, "+"];
+        characterPositions = [...characterPositions, character];
       } else if (c === character) {
         characterPositions = [...characterPositions, i];
       }
