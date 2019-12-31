@@ -2,10 +2,11 @@
   "name": "caesar-cipher",
   "version": "1.0.0",
   "description": "Javascript implementation of the Caesar Cipher",
-  "main": "main.js",
+  "main": "dist/main.js",
   "scripts": {
-    "build":"rimraf dist && tsc",
-    "test": "mocha -r ts-node/register main-test.ts"
+    "test": "mocha -r ts-node/register main-test.ts",
+    "build": "rimraf dist && tsc",
+    "prepublish": "npm run test && npm run build"
   },
   "keywords": [
     "typescript",
@@ -16,6 +17,10 @@
   "author": {
     "name": "Arlind Xhakoli",
     "email": "xhakoliarlind@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ArlindXh/caesar-cipher.git"
   },
   "license": "MIT",
   "devDependencies": {
