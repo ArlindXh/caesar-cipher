@@ -1,5 +1,4 @@
 export default class Cipher {
-
   private characters: Array<string> = [
     "a",
     "b",
@@ -26,19 +25,16 @@ export default class Cipher {
     "w",
     "x",
     "y",
-    "z"
+    "z",
   ];
 
   private getCharacterPositions(text: String) {
     let newString: String = text.replace(/\s+/g, "+");
     let splittedString: Array<string | number> = newString.split("");
     let characterPositions: Array<string | number> = [];
-    splittedString.map(character => {
+    splittedString.map((character) => {
       this.characters.map((c, i) => {
-        if (
-          character === "+" &&
-          characterPositions[characterPositions.length - 1] !== "+"
-        ) {
+        if (character === "+" && characterPositions[characterPositions.length - 1] !== "+") {
           characterPositions = [...characterPositions, character];
         } else if (c === character) {
           characterPositions = [...characterPositions, i];
@@ -48,15 +44,11 @@ export default class Cipher {
     return characterPositions;
   }
 
-  private alteredString(
-    positions: Array<any>,
-    shiftLength: number,
-    positiveShift: Boolean
-  ) {
+  private alteredString(positions: Array<any>, shiftLength: number, positiveShift: Boolean) {
     let remainderLength: number;
     let newString = "";
     if (positiveShift) {
-      positions.map(pos => {
+      positions.map((pos) => {
         if (pos === "+") {
           newString = newString + " ";
         } else if (pos + shiftLength > this.characters.length - 1) {
@@ -67,7 +59,7 @@ export default class Cipher {
         }
       });
     } else {
-      positions.map(pos => {
+      positions.map((pos) => {
         if (pos === "+") {
           newString = newString + " ";
         } else if (pos - shiftLength < 0) {
@@ -91,5 +83,4 @@ export default class Cipher {
     const charPosArray = this.getCharacterPositions(text);
     return this.alteredString(charPosArray, shiftLength, false);
   }
-
 }
