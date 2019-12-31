@@ -4,6 +4,7 @@
   "description": "Javascript implementation of the Caesar Cipher",
   "main": "main.js",
   "scripts": {
+    "build":"rimraf dist && tsc",
     "test": "mocha -r ts-node/register main-test.ts"
   },
   "keywords": [
@@ -22,6 +23,7 @@
     "@types/mocha": "^5.2.7",
     "chai": "^4.2.0",
     "mocha": "^6.2.2",
+    "rimraf": "^3.0.0",
     "ts-node": "^8.5.4",
     "typescript": "^3.7.4"
   }

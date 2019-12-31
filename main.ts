@@ -1,5 +1,5 @@
 export default class Cipher {
-  private characters: Array<string> = [
+  private alphabet: Array<string> = [
     "a",
     "b",
     "c",
@@ -30,10 +30,10 @@ export default class Cipher {
 
   private getCharacterPositions(text: String) {
     let newString: String = text.replace(/\s+/g, "+");
-    let splittedString: Array<string | number> = newString.split("");
+    let characters: Array<string | number> = newString.split("");
     let characterPositions: Array<string | number> = [];
-    splittedString.map((character) => {
-      this.characters.map((c, i) => {
+    characters.map((character) => {
+      this.alphabet.map((c, i) => {
         if (character === "+" && characterPositions[characterPositions.length - 1] !== "+") {
           characterPositions = [...characterPositions, character];
         } else if (c === character) {
@@ -44,29 +44,29 @@ export default class Cipher {
     return characterPositions;
   }
 
-  private alteredString(positions: Array<any>, shiftLength: number, positiveShift: Boolean) {
+  private alteredString(charPositions: Array<any>, shiftLength: number, positiveShift: Boolean) {
     let remainderLength: number;
     let newString = "";
     if (positiveShift) {
-      positions.map((pos) => {
+      charPositions.map((pos) => {
         if (pos === "+") {
           newString = newString + " ";
-        } else if (pos + shiftLength > this.characters.length - 1) {
-          remainderLength = pos + shiftLength - this.characters.length;
-          newString = newString + this.characters[remainderLength];
+        } else if (pos + shiftLength > this.alphabet.length - 1) {
+          remainderLength = pos + shiftLength - this.alphabet.length;
+          newString = newString + this.alphabet[remainderLength];
         } else {
-          newString = newString + this.characters[pos + shiftLength];
+          newString = newString + this.alphabet[pos + shiftLength];
         }
       });
     } else {
-      positions.map((pos) => {
+      charPositions.map((pos) => {
         if (pos === "+") {
           newString = newString + " ";
         } else if (pos - shiftLength < 0) {
-          remainderLength = pos - shiftLength + this.characters.length;
-          newString = newString + this.characters[remainderLength];
+          remainderLength = pos - shiftLength + this.alphabet.length;
+          newString = newString + this.alphabet[remainderLength];
         } else {
-          newString = newString + this.characters[pos - shiftLength];
+          newString = newString + this.alphabet[pos - shiftLength];
         }
       });
     }
@@ -75,12 +75,12 @@ export default class Cipher {
   }
 
   encrypt(text: String, shiftLength: number) {
-    const charPosArray = this.getCharacterPositions(text);
-    return this.alteredString(charPosArray, shiftLength, true);
+    const charPositions = this.getCharacterPositions(text);
+    return this.alteredString(charPositions, shiftLength, true);
   }
 
   decrypt(text: String, shiftLength: number) {
-    const charPosArray = this.getCharacterPositions(text);
-    return this.alteredString(charPosArray, shiftLength, false);
+    const charPositions = this.getCharacterPositions(text);
+    return this.alteredString(charPositions, shiftLength, false);
   }
 }
