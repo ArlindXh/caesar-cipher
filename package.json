@@ -1,11 +1,28 @@
 {
   "name": "caesar-cipher",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Javascript implementation of the Caesar Cipher",
+  "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha -r ts-node/register main-test.ts"
   },
-  "author": "Arlind Xhakoli",
-  "license": "ISC"
+  "keywords": [
+    "typescript",
+    "node",
+    "encryption",
+    "caesar cipher"
+  ],
+  "author": {
+    "name": "Arlind Xhakoli",
+    "email": "xhakoliarlind@gmail.com"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/chai": "^4.2.7",
+    "@types/mocha": "^5.2.7",
+    "chai": "^4.2.0",
+    "mocha": "^6.2.2",
+    "ts-node": "^8.5.4",
+    "typescript": "^3.7.4"
+  }
 }

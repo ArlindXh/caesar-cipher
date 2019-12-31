@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "./dist/",
+    "target": "es5",
+    "sourceMap": false,
+    "declaration": false,
+    "lib": ["es2017", "es2015", "dom", "es6"],
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "esModuleInterop": true
+  },
+  "exclude": [".git", "node_modules", "dist"]
+}
