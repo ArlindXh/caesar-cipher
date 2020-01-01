@@ -1,4 +1,4 @@
-import Cipher from "./main";
+import { Cipher } from "./main";
 import { expect } from "chai";
 
 describe("Encryption function", () => {
