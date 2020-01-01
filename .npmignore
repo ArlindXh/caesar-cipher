@@ -1,0 +1,7 @@
+# Dependency directory
+node_modules
+
+# Ignore main ts files
+main.ts
+main-test.ts
+tsconfig.json
