@@ -10,10 +10,16 @@ $ npm install js-cipher
 
 ## Usage
 
-Start by `import`-ing or `require`-ing the module:
+Start by `import`-ing the module:
 
 ```js
 import Cipher from "js-cipher";
+```
+
+or `require`-ing it:
+
+```js
+const { Cipher } = require("js-cipher");
 ```
 
 It returns a `Class` containing 2 usable methods, `encrypt` and `decrypt`:
