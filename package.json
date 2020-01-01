@@ -11,8 +11,9 @@
   "keywords": [
     "typescript",
     "node",
+    "caesar cipher",
     "encryption",
-    "caesar cipher"
+    "decryption"
   ],
   "author": {
     "name": "Arlind Xhakoli",
