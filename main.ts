@@ -1,4 +1,4 @@
-export default class Cipher {
+export class Cipher {
   private alphabet: Array<string> = [
     "a",
     "b",
