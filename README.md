@@ -1,4 +1,12 @@
+# js-cipher
+
+<br/>
+
 [![Build Status](https://travis-ci.org/ArlindXh/caesar-cipher.svg?branch=master)][travis-url]
+
+<br/>
+
+> A **Caesar Cipher** Implementation in Javascript, allowing you to encrypt and decrypt your texts.
 
 ## Install
 
