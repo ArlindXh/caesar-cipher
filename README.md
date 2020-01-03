@@ -30,7 +30,7 @@ or `require`-ing it:
 const { Cipher } = require("js-cipher");
 ```
 
-It returns a `Class` containing 2 usable methods, `encrypt` and `decrypt`:
+It returns a `Class` containing 2 usable methods, `encrypt` and `decrypt`.
 
 ```js
 const cipher = new Cipher();
@@ -42,7 +42,19 @@ cipher.decrypt("khoor zruog", 3);
 //hello world
 ```
 
-<br/>
+By default `js-cipher` uses the english alphabet, but you can also use a non-english alphabet by adding the alphabet abbreviation in the class constructor.
+
+```js
+const cipher = new Cipher("sq");
+```
+
+> This will use the albanian alphabet(36 characters) for encryption/decryption.
+
+Supported alphabets:
+
+- English
+- Albanian
+  <br/>
 
 ## License
 
