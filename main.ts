@@ -4,7 +4,10 @@ export class Cipher {
   languageNames: Array<string> = Object.keys(alphabets);
   alphabet: Array<Array<string>> = [];
   characters: Array<string> = [];
-  languageSelected?: string
+  languageSelected?: string;
+  defaultRegex: RegExp = /([a-z])|(\+)/gi;
+  alRegex: RegExp = /(dh|Dh)|(gj|Gj)|(ll|Ll)|(nj|Nj)|(rr|Rr)|(sh|Sh)|(th|Th)|(xh|Xh)|(zh|Zh)|(ë|Ë)|(ç|Ç)|(\+)|([a-z])/gi;
+
   constructor(language?: string) {
     this.languageSelected = language;
     if (!language) {
@@ -70,9 +73,9 @@ export class Cipher {
     let newText: string = text.replace(/\s+/g, "+")
     let destrucuredText: any;
     if (this.languageSelected === "sq") {
-      destrucuredText = newText.match(/(dh|Dh)|(gj|Gj)|(ll|Ll)|(nj|Nj)|(rr|Rr)|(sh|Sh)|(th|Th)|(xh|Xh)|(zh|Zh)|(ë|Ë)|(ç|Ç)|(\+)|([a-z])/gi)
+      destrucuredText = newText.match(this.alRegex);
     } else {
-      destrucuredText = newText.match(/([a-z])|(\+)/gi)
+      destrucuredText = newText.match(this.defaultRegex);
     }
     return destrucuredText;
   }
@@ -91,7 +94,6 @@ export class Cipher {
       const charPositions = this.getCharacterPositions(text);
       return this.alteredString(charPositions, shiftLength, false);
     } catch (err) {
-
       throw new Error(`Unable to decrypt message. ${err.message}`)
     }
   }
