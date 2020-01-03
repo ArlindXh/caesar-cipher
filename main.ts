@@ -1,37 +1,25 @@
+import alphabets from "./alphabets.json";
+
 export class Cipher {
-  private alphabet: Array<Array<string>> = [
-    ["a", "A"],
-    ["b", "B"],
-    ["c", "C"],
-    ["d", "D"],
-    ["e", "E"],
-    ["f", "F"],
-    ["g", "G"],
-    ["h", "H"],
-    ["i", "I"],
-    ["j", "J"],
-    ["k", "K"],
-    ["l", "L"],
-    ["m", "M"],
-    ["n", "N"],
-    ["o", "O"],
-    ["p", "P"],
-    ["q", "Q"],
-    ["r", "R"],
-    ["s", "S"],
-    ["t", "T"],
-    ["u", "U"],
-    ["v", "V"],
-    ["w", "W"],
-    ["x", "X"],
-    ["y", "Y"],
-    ["z", "Z"],
-  ];
-  private getCharacterPositions(text: String) {
-    let newString: String = text.replace(/\s+/g, "+");
-    let characters: Array<string | number> = newString.split("");
+  languageNames: Array<string> = Object.keys(alphabets);
+  alphabet: Array<Array<string>> = [];
+  characters: Array<string> = [];
+  languageSelected?: string
+  constructor(language?: string) {
+    this.languageSelected = language;
+    if (!language) {
+      this.alphabet = (alphabets as any)["en"];
+    } else if (this.languageNames.indexOf(language) !== -1) {
+      this.alphabet = (alphabets as any)[language];
+    } else {
+      throw new Error("Wrong language input.")
+    }
+  }
+
+  private getCharacterPositions(text: string) {
+    this.characters = this.destructureText(text);
     let characterPositions: Array<Object | string> = [];
-    characters.map((character) => {
+    this.characters.map((character) => {
       this.alphabet.map((c, i) => {
         if (character === "+" && characterPositions[characterPositions.length - 1] !== "+") {
           characterPositions = [...characterPositions, character];
@@ -75,13 +63,24 @@ export class Cipher {
     return newString;
   }
 
-  encrypt(text: String, shiftLength: number) {
+  private destructureText(text: string) {
+    let newText: string = text.replace(/\s+/g, "+")
+    let destrucuredText: any;
+    if (this.languageSelected === "sq") {
+      destrucuredText = newText.match(/(dh|Dh)|(gj|Gj)|(ll|Ll)|(nj|Nj)|(rr|Rr)|(sh|Sh)|(th|Th)|(xh|Xh)|(zh|Zh)|(ë|Ë)|(ç|Ç)|(\+)|([a-z])/gi)
+    } else {
+      destrucuredText = newText.match(/([a-z])|(\+)/gi)
+    }
+    return destrucuredText;
+  }
+
+  encrypt(text: string, shiftLength: number) {
     const charPositions = this.getCharacterPositions(text);
     return this.alteredString(charPositions, shiftLength, true);
   }
 
-  decrypt(text: String, shiftLength: number) {
+  decrypt(text: string, shiftLength: number) {
     const charPositions = this.getCharacterPositions(text);
     return this.alteredString(charPositions, shiftLength, false);
   }
-}
+};
