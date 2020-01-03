@@ -34,6 +34,9 @@ export class Cipher {
   }
 
   private alteredString(charPositions: Array<any>, shiftLength: number, positiveShift: Boolean) {
+    if (!shiftLength || shiftLength > this.alphabet.length) {
+      throw new Error(`Maximum shift length is: ${this.alphabet.length}`)
+    }
     let remainderLength: number;
     let newString = "";
     if (positiveShift) {
@@ -75,12 +78,21 @@ export class Cipher {
   }
 
   encrypt(text: string, shiftLength: number) {
-    const charPositions = this.getCharacterPositions(text);
-    return this.alteredString(charPositions, shiftLength, true);
+    try {
+      const charPositions = this.getCharacterPositions(text);
+      return this.alteredString(charPositions, shiftLength, true);
+    } catch (err) {
+      throw new Error(`Unable to encrypt message. ${err.message}`)
+    }
   }
 
   decrypt(text: string, shiftLength: number) {
-    const charPositions = this.getCharacterPositions(text);
-    return this.alteredString(charPositions, shiftLength, false);
+    try {
+      const charPositions = this.getCharacterPositions(text);
+      return this.alteredString(charPositions, shiftLength, false);
+    } catch (err) {
+
+      throw new Error(`Unable to decrypt message. ${err.message}`)
+    }
   }
 };
