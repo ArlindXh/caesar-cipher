@@ -4,7 +4,7 @@ export class Cipher {
   alphabet: Array<Array<string>> = en;
   characters: Array<string> = [];
   defaultRegex: RegExp = /([a-z])|(\+)|[^A-Za-z]/gi;
-  nonAlphabetChars: any = /[^A-Za-z|+]+/g;
+  nonAlphabetChars: RegExp = /[^A-Za-z|+]+/g;
 
   private getCharacterPositions(text: string) {
     this.characters = this.destructureText(text);
@@ -27,9 +27,6 @@ export class Cipher {
   }
 
   private alteredString(charPositions: Array<any>, shiftLength: number, positiveShift: Boolean) {
-    if (!shiftLength || shiftLength > this.alphabet.length) {
-      throw new Error(`Maximum shift length is: ${this.alphabet.length}`)
-    }
     let remainderLength: number;
     let newString = "";
     if (positiveShift) {
@@ -68,12 +65,30 @@ export class Cipher {
   private destructureText(text: string) {
     let newText: string = text.replace(/\s+/g, "+")
     let destructuredText: any = newText.match(this.defaultRegex);
-
     return destructuredText;
+  }
+
+  private validateParameters(text: string, shiftLength: number) {
+    if (!text) {
+      throw new Error("Text is required.")
+    }
+    if (typeof text !== "string") {
+      throw new Error("Text should be a string.")
+    }
+    if (typeof shiftLength !== "number") {
+      throw new Error("Shift length should be a number.")
+    }
+    if (!shiftLength && shiftLength !== 0) {
+      throw new Error("Shift length is required.")
+    }
+    if (shiftLength <= 0 || shiftLength > this.alphabet.length) {
+      throw new Error(`Shift length should be between : 1-${this.alphabet.length}.`)
+    }
   }
 
   encrypt(text: string, shiftLength: number) {
     try {
+      this.validateParameters(text, shiftLength)
       const charPositions = this.getCharacterPositions(text);
       return this.alteredString(charPositions, shiftLength, true);
     } catch (err) {
@@ -83,6 +98,7 @@ export class Cipher {
 
   decrypt(text: string, shiftLength: number) {
     try {
+      this.validateParameters(text, shiftLength)
       const charPositions = this.getCharacterPositions(text);
       return this.alteredString(charPositions, shiftLength, false);
     } catch (err) {
