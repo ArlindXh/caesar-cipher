@@ -35,26 +35,12 @@ It returns a `Class` containing 2 usable methods, `encrypt` and `decrypt`.
 ```js
 const cipher = new Cipher();
 
-cipher.encrypt("hello world", 3);
-// khoor zruog
+cipher.encrypt("Hello world!", 3);
+// Khoor zruog!
 
-cipher.decrypt("khoor zruog", 3);
-//hello world
+cipher.decrypt("Khoor zruog!", 3);
+//Hello world!
 ```
-
-By default `js-cipher` uses the english alphabet, but you can also use a non-english alphabet by adding the alphabet abbreviation in the class constructor.
-
-```js
-const cipher = new Cipher("sq");
-```
-
-> This will use the albanian alphabet(36 characters) for encryption/decryption.
-
-Supported alphabets:
-
-- English
-- Albanian
-  <br/>
 
 ## License
 
