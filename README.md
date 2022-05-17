@@ -21,7 +21,7 @@ $ npm install js-cipher
 Start by `import`-ing the module:
 
 ```js
-import Cipher from "js-cipher";
+import { Cipher } from "js-cipher";
 ```
 
 or `require`-ing it:
